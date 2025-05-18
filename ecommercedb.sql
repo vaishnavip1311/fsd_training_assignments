@@ -32,7 +32,7 @@ CREATE TABLE purchase (
     product_id INT,
     quantity INT NOT NULL,
     total_price DECIMAL(10,2) NOT NULL,
-    coupon ENUM('WELCOME10', 'FESTIVE20', 'SUMMER15', 'NONE') DEFAULT 'NONE',
+    coupon VARCHAR(20),
     FOREIGN KEY (customer_id) REFERENCES customer(id),
     FOREIGN KEY (product_id) REFERENCES product(id)
 );
