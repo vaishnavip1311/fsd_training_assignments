@@ -13,6 +13,7 @@ import com.ecom.model.Purchase;
 import com.ecom.service.CategoryService;
 import com.ecom.service.CustomerService;
 import com.ecom.service.ProductService;
+import com.ecom.service.PurchaseService;
 
 public class App {
 	
@@ -22,7 +23,7 @@ public class App {
         CategoryService categoryService = new CategoryService();
         CustomerService customerService = new CustomerService();
         ProductService productService = new ProductService();
-        //PurchaseService purchaseService = new PurchaseService();
+        PurchaseService purchaseService = new PurchaseService();
 
         Category category = new Category();
         Customer customer = new Customer();
@@ -53,7 +54,7 @@ public class App {
             
             switch (choice) {
             case 1: // Add Category
-                sc.nextLine(); // consume newline
+                sc.nextLine(); 
                 System.out.print("Enter category name: ");
                 category.setName(sc.nextLine());
                 categoryService.addCategory(category);
@@ -118,7 +119,6 @@ public class App {
                 product.setDescription(sc.nextLine());
                 System.out.print("Enter category ID for product: ");
                 int productCatId = sc.nextInt();
-                //product.setCategoryId(productCatId);
                 productService.addProduct(product,productCatId);
                 System.out.println("Product added successfully.");
                 break;
@@ -136,18 +136,18 @@ public class App {
                 break;
 
             case 10: // Add Purchase
-                /*System.out.print("Enter customer ID: ");
+                System.out.print("Enter customer ID: ");
                 int pCustId = sc.nextInt();
                 System.out.print("Enter product ID: ");
                 int pProdId = sc.nextInt();
-                System.out.print("Enter quantity: ");
-                int qty = sc.nextInt();
-
-                purchase.setCustomerId(pCustId);
-                purchase.setProductId(pProdId);
-                purchase.setQuantity(qty);
-                purchaseService.addPurchase(purchase);
-                System.out.println("Purchase recorded successfully.");*/
+ 
+                try {
+					purchaseService.purchaseProduct(pCustId,pProdId,sc);
+					System.out.println("Purchase recorded successfully.");
+				}catch(IllegalArgumentException e) {
+					System.out.println("Coupon code is Invalid!!");
+				}
+                
                 break;
 
             default:

@@ -77,4 +77,31 @@ public class CustomerDaoImpl implements CustomerDao {
 		return customers;
 	}
 
+	@Override
+	public Customer getById(int id) throws CustomerNotFoundException {
+		Connection conn = db.connect();
+		Customer customer = null;
+		String sql = "SELECT * FROM customer WHERE id = ?";
+        try{
+        	PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			
+			ResultSet rst=  pstmt.executeQuery();
+			if(rst.next() == true) {
+				customer = new Customer();
+				customer.setId(rst.getInt("id"));
+				customer.setName(rst.getString("name"));
+			    customer.setCity(rst.getString("city"));	
+			}else {
+	            throw new CustomerNotFoundException("Customer ID " + id + " not found.");
+	        }
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }finally {
+        	db.close();
+        }
+        //throw new CategoryNotFoundException(" ");
+        return customer; 
+	}
+
 }

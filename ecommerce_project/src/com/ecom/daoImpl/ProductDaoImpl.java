@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.ecom.dao.ProductDao;
+import com.ecom.exception.ProductNotFoundException;
 import com.ecom.model.Category;
 import com.ecom.model.Product;
 import com.ecom.utility.DBUtility;
@@ -94,6 +95,36 @@ public class ProductDaoImpl implements ProductDao {
         }
         
 		return products;
+	}
+
+	@Override
+	public Product getById(int id) throws ProductNotFoundException {
+		Connection conn = db.connect();
+		Product product = null;
+		String sql = "SELECT * FROM product WHERE id = ?";
+        try{
+        	PreparedStatement pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, id);
+			
+			ResultSet rst=  pstmt.executeQuery();
+			if(rst.next() == true) {
+				product = new Product();
+				product.setId(rst.getInt("id"));
+		        product.setTitle(rst.getString("title"));
+		        product.setPrice(rst.getDouble("price"));
+		        product.setDescription(rst.getString("description"));
+		        Category category = new Category();
+		        category.setId(rst.getInt("category_id"));
+		        product.setCategory(category);	
+			}else {
+	            throw new ProductNotFoundException("Product ID " + id + " not found.");
+	        }
+        } catch (SQLException e) {
+        	System.out.println(e.getMessage());
+        }finally {
+        	db.close();
+        }
+        return product;
 	}
 
 	

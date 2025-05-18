@@ -1,0 +1,20 @@
+package com.ecom.service;
+
+import com.ecom.dao.PurchaseDao;
+import com.ecom.daoImpl.PurchaseDaoImpl;
+import com.ecom.model.Purchase;
+
+public class PurchaseService {
+	
+	private PurchaseDao dao = new PurchaseDaoImpl();
+
+    public void addPurchase(Purchase purchase) {
+        if (purchase.getQuantity() <= 0)
+            throw new IllegalArgumentException("Quantity must be greater than 0");
+        if (purchase.getTotalPrice() <= 0)
+            throw new IllegalArgumentException("Total price must be greater than 0");
+
+        dao.addPurchase(purchase);
+    }
+
+}

@@ -9,6 +9,7 @@ public interface CustomerDao {
 	
 	void addCustomer(Customer customer);
 	void delete(int id) throws CustomerNotFoundException;
+	Customer getById(int id) throws CustomerNotFoundException;
     List<Customer> getAllCustomers();
 
 }
