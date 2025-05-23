@@ -1,0 +1,26 @@
+package com.ecom.test;
+
+import org.junit.jupiter.api.Test;
+
+public class CategoryServiceTest {
+	
+	@BeforeEach
+    void init() {
+        service = new CategoryService();
+    }
+
+    @Test
+    void testAddCategory() {
+        Category c = new Category(101, "Electronics");
+        assertDoesNotThrow(() -> service.addCategory(c));
+    }
+
+    @Test
+    void testGetByIdSuccess() throws CategoryNotFoundException {
+        Category c = new Category(102, "Appliances");
+        service.addCategory(c);
+        Category fetched = service.getById(102);
+        assertEquals("Appliances", fetched.getCategoryName());
+    }
+
+}

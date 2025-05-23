@@ -1,0 +1,20 @@
+package com.ecom.test;
+
+import com.ecom.service.CustomerService;
+
+public class CustomerServiceTest {
+	
+	CustomerService service;
+	
+	@BeforeEach
+    void init() {
+        service = new CustomerService();
+    }
+
+    @Test
+    void testAddCustomer() {
+        Customer customer = new Customer(301, "Vaishnavi", "vaish@gmail.com");
+        assertDoesNotThrow(() -> service.addCustomer(customer));
+    }
+
+}

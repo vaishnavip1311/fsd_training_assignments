@@ -1,0 +1,11 @@
+/**
+ * 
+ */
+/**
+ * 
+
+module ecommerce_project {
+	requires java.sql;
+	requires org.junit.jupiter.api;
+}
+ */
