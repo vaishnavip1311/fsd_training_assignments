@@ -27,9 +27,10 @@ public class SecurityConfig {
 					.requestMatchers("/api/user/signup").permitAll()
 					.requestMatchers("/api/user/token").authenticated()
 					.requestMatchers("/api/user/details").authenticated()
+					.requestMatchers("/api/doctor/add").hasAuthority("ADMIN")
+					.requestMatchers("/api/medical-history/add-patient").permitAll()
 					
 					
-					.requestMatchers("/api/learner/add").permitAll()
 					.requestMatchers("/api/learner/get-one").hasAuthority("LEARNER")
 					.requestMatchers("/api/course/add").hasAnyAuthority("AUTHOR","EXECUTIVE")
 					.requestMatchers("/api/author/add").permitAll()

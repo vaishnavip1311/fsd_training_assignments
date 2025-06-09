@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import com.springboot.casestudy.exception.PatientNotFoundException;
 import com.springboot.casestudy.exception.ResourceNotFoundException;
 
 
@@ -34,6 +35,15 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(exception = Exception.class)
 	public ResponseEntity<?> handleException(Exception e) {
+		Map<String, String> map = new HashMap<>();
+		map.put("msg", e.getMessage());
+		return ResponseEntity
+				.status(HttpStatus.NOT_FOUND)
+				.body(map);
+	}
+	
+	@ExceptionHandler(exception = PatientNotFoundException.class)
+	public ResponseEntity<?> handlePatientNotFoundException(PatientNotFoundException e) {
 		Map<String, String> map = new HashMap<>();
 		map.put("msg", e.getMessage());
 		return ResponseEntity
