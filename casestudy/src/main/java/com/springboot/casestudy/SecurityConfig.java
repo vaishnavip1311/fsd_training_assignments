@@ -27,13 +27,16 @@ public class SecurityConfig {
 					.requestMatchers("/api/user/signup").permitAll()
 					.requestMatchers("/api/user/token").authenticated()
 					.requestMatchers("/api/user/details").authenticated()
+					
 					.requestMatchers("/api/doctor/add").hasAuthority("ADMIN")
+					
 					.requestMatchers("/api/medical-history/add-patient").permitAll()
+					.requestMatchers("/api/medical-history/get-patient/{patientIid}").permitAll()
 					
+					.requestMatchers("/api/patient-doctor/add-appointment/{patientId}/{doctorId}").permitAll()
+					.requestMatchers("/api/patient-doctor/get-all/patient/{doctorId}\"").hasAuthority("DOCTOR")
 					
-					.requestMatchers("/api/learner/get-one").hasAuthority("LEARNER")
-					.requestMatchers("/api/course/add").hasAnyAuthority("AUTHOR","EXECUTIVE")
-					.requestMatchers("/api/author/add").permitAll()
+				
 					
 					.anyRequest().authenticated()  
 			)
