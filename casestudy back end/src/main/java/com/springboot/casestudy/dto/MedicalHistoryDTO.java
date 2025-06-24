@@ -1,13 +1,13 @@
 package com.springboot.casestudy.dto;
 
-import org.springframework.stereotype.Component;
+import com.springboot.casestudy.model.Patient;
 
 public class MedicalHistoryDTO {
 	
 	private String illness;
     private int numberOfYears;
     private String currentMedication;
-    
+    private Patient patient;
 
     public String getIllness() {
 		return illness;
@@ -33,10 +33,19 @@ public class MedicalHistoryDTO {
 		this.currentMedication = currentMedication;
 	}
 
-	public MedicalHistoryDTO(String illness, int numberOfYears, String currentMedication) {
+	public Patient getPatient() {
+		return patient;
+	}
+
+	public void setPatient(Patient patient) {
+		this.patient = patient;
+	}
+
+	public MedicalHistoryDTO(String illness, int numberOfYears, String currentMedication,Patient patient) {
         this.illness = illness;
         this.numberOfYears = numberOfYears;
         this.currentMedication = currentMedication;
+        this.patient = patient;
     }
 
 }
